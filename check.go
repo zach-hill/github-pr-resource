@@ -44,6 +44,10 @@ Loop:
 			continue
 		}
 
+		if request.Source.BaseBranchRegex != "" && ! FilterBranchRegex(p.PullRequestObject.BaseRefName, request.Source.BaseBranchRegex) {
+			continue
+		}
+
 		// Filter out commits that are too old.
 		if !p.UpdatedDate().Time.After(request.Version.CommittedDate) {
 			continue
@@ -142,6 +146,11 @@ Loop:
 func ContainsSkipCI(s string) bool {
 	re := regexp.MustCompile("(?i)\\[(ci skip|skip ci)\\]")
 	return re.MatchString(s)
+}
+
+func FilterBranchRegex(branch string, pattern string) bool {
+	re := regexp.MustCompile(pattern)
+	return re.MatchString(branch)
 }
 
 // FilterIgnorePath ...

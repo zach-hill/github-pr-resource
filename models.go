@@ -24,6 +24,7 @@ type Source struct {
 	IgnoreDrafts            bool                        `json:"ignore_drafts"`
 	GitCryptKey             string                      `json:"git_crypt_key"`
 	BaseBranch              string                      `json:"base_branch"`
+	BaseBranchRegex			string						`json:"base_branch_regex"`
 	RequiredReviewApprovals int                         `json:"required_review_approvals"`
 	Labels                  []string                    `json:"labels"`
 	States                  []githubv4.PullRequestState `json:"states"`
